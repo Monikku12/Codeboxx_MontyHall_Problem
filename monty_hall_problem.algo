@@ -1,0 +1,31 @@
+Monty Hall Problem Algorithm
+
+INIT game
+    
+    Player 1 picks a door between Door1, Door2 and Door3
+    Player 2 opens a unchosen goat door
+    Player 1 makes his final picks:
+        IF Player 1 keeps picked door
+            IF door is car
+                ADD 1 TO door picked won games total
+            ELSE 
+                Player 1 loose
+                ADD 1 TO door picked lost games total
+            ENDIF
+        ELSE (change door)
+            IF door is car
+                Player 1 win
+                ADD 1 TO final pick won games total
+            ELSE 
+                Player 1 loose
+                ADD 1 TO final pick lost games total
+            ENDIF
+        ENDIF
+    INCREMENT played games total by 1
+    CALCULATE door picked won games total / played games total * 100
+    CALCULATE door picked lost games total / played games total * 100
+    CALCULATE final pick won games total / played games total * 100
+    CALCULATE final pick lost games total / played games total * 100
+REPEAT
+    game
+UNTIL game total = 10000
