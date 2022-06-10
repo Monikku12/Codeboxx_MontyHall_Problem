@@ -6,10 +6,6 @@ class Door {
         }
 }
 
-
- 
-
-
 class Game {
     constructor() {
         this.doors = [];
@@ -20,6 +16,7 @@ class Game {
         this.createDoors();
         this.firstTurn();
         this.secondTurn();
+        this.thirdTurn();
     }
     
     createDoors() {
@@ -34,78 +31,92 @@ class Game {
         console.log("firstTurn is ", this.doorPicked)
     }
 
-    secondTurn() {
-        var minusFirstTurn
+    secondTurn() {        
         this.openedGoatDoor = this.doors.filter(door=>
             door.number !== this.doorPicked.number && door.isCar == false); 
             this.openedGoatDoor[0].opened = true;
-        // this.openedGoatDoor = minusFirstTurn[0]
-        console.log("this.openedGoatDoor is :", this.openedGoatDoor)
+        console.log("secondTurn is :", this.openedGoatDoor)
     }
 
+// TODO: - Check Why "this.finalPick[0].opened = true" don't return 
     thirdTurn() {
         this.finalPick = this.doors.filter(door=>
             door.number !== this.doorPicked.number && this.openedGoatDoor.number);
-        this.finalPick.opened = true;
-        console.log("this.openedGoatDoor is :", this.openedGoatDoor)
-
-
-
+            this.finalPick[0].opened = true;
+        console.log("thirdTurn is :", this.doorPicked.number)
+    }
+    
+    Results() {  
         var choice;
         var sameDoor;
-        var changeDoor;
+        var doorChange;
         if (choice = sameDoor) {
             if (this.doorPicked.isCar = true) {
                 this.doorPicked.opened = true;
                 console.log("this.doorPicked is", this.doorPicked)
                 alert("You win!");
+                this.won = true;
             } else {
                 this.doorPicked.opened = true;
-                alert("You loose!")
+                alert("You loose!");
+                this.won = false;
             }
-        } else (choice = changeDoor)
+        } else (choice = doorChange)
         if (this.finalPick.isCar = true) {
             this.finalPick.opened = true;
             console.log("this.finalPick is", this.finalPick)
             alert("You win!");
+            this.won = true;
         } else {
             this.finalPick.opened = true;
-            alert("You loose!")
+            alert("You loose!");
+            this.won = false;
         }
     }
 }
 
-var game = new Game();
+var sameDoorGame = new Game(choice = sameDoor);
+var doorChangeGame = new Game(choice = doorChange);
 
-for (let i = 0; i < 10000; i++) {
-    // if statement game play
-   }
+// for (let i = 0; i < 10000; i++) {
+//     // if statement game play
+//    }
 
 
 
 class Statistics {
     constructor() {
-        this.gamesWithSameDoorWon = [""];
-        this.gamesWithSameDoorLost = [""];
-        this.gamesWithDoorChangeWon = [""];
-        this.gamesWithDoorChangeLost = [""]
-        this.totalPlayedGames = [""];
+        this.gamesWithSameDoorWon = [];
+        this.gamesWithSameDoorLost = [];
+        this.gamesWithDoorChangeWon = [];
+        this.gamesWithDoorChangeLost = []
+        this.totalSameDoorPlayedGames = [];
+        this.totalDoorChangePlayedGames = [];
+        this.percentageGamesWithSameDoorWon;
+        this.percentageGamesWithSameDoorLost;
+        this.percentageGamesWithDoorChangeWon;
+        this.percentageGamesWithDoorChangeLost;
+
     }
 
     function () {
-        gamesWithSameDoorWon / totalPlayedGames * 100
+        percentageGamesWithSameDoorWon = gamesWithSameDoorWon / totalSameDoorPlayedGames * 100
+        return (percentageGamesWithSameDoorWon, "%")
     }
 
     function () {
-        gamesWithSameDoorLost / totalPlayedGames * 100
+        percentageGamesWithSameDoorLost = gamesWithSameDoorLost / totalSameDoorPlayedGames * 100
+        return (percentageGamesWithSameDoorLost, "%")
     }
 
     function () {
-        gamesWithDoorChangeWon / totalPlayedGames * 100
+        percentageGamesWithDoorChangeWon = gamesWithDoorChangeWon / totalDoorChangePlayedGames * 100
+        return (percentageGamesWithDoorChangeWon, "%")
     }
 
     function () {
-        gamesWithDoorChangeLost / totalPlayedGames * 100
+        percentageGamesWithDoorChangeLost = gamesWithDoorChangeLost / totalDoorChangePlayedGames * 100
+        return (percentageGamesWithDoorChangeLost, "%")
     }
 }
 // let game = 0

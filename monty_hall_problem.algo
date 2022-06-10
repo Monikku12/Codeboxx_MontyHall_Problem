@@ -1,10 +1,109 @@
+DEFINE Door USING number AND isCar
+    // CONSTRUCTOR
+    SET THIS number TO number
+    SET THIS isCar TO isCar
+    SET THIS opened TO false
+
+
+
+DEFINE Game
+    // CONSTRUCTOR
+    SET THIS doors
+    SET THIS doorPicked
+    SET THIS openedGoatDoor
+    SET THIS finalPick
+    SET THIS won
+    SET THIS createDoors
+    SET THIS firstTurn
+    SET THIS secondTurn
+    SET THIS thirdTurn
+
+    // METHODES
+    SET THIS doors TO NEW Door WITH 1 AND true
+    SET THIS doors TO NEW Door WITH 2 AND false
+    SET THIS doors TO NEW Door WITH 3 AND false
+
+
+
+
+    DETERMINE firstTurn results
+    GET THIS doorPicked randomly
+
+    DETERMINE secondTurn results
+    GET THIS openedGoatDoor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEFINE Statistics
+    // CONSTRUCTOR
+    SET THIS gamesWithSameDoorWon
+    SET THIS gamesWithSameDoorLost
+    SET THIS gamesWithDoorChangeWon
+    SET THIS gamesWithDoorChangeLost
+    SET THIS totalSameDoorPlayedGames
+    SET THIS totalDoorChangePlayedGames
+    SET THIS percentageGamesWithSameDoorWon
+    SET THIS percentageGamesWithSameDoorLost
+    SET THIS percentageGamesWithDoorChangeWon
+    SET THIS percentageGamesWithDoorChangeLost
+
+
+
 Monty Hall Problem Algorithm
 
 INIT game
     
-    Player 1 picks a door between Door1, Door2 and Door3
-    Player 2 opens a unchosen goat door
-    Player 1 makes his final picks:
+   
         IF Player 1 keeps picked door
             IF door is car
                 ADD 1 TO door picked won games total
