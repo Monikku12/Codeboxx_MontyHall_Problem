@@ -1,0 +1,139 @@
+DEFINE Door USING number AND isCar
+    // CONSTRUCTOR
+    SET THIS number TO number
+    SET THIS isCar TO isCar
+    SET THIS opened TO false
+
+
+
+DEFINE Game
+    // CONSTRUCTOR
+    SET THIS doors
+    SET THIS doorPicked
+    SET THIS openedGoatDoor
+    SET THIS finalPick
+    SET THIS won
+    goatDoor
+    choice
+    SET THIS createDoors
+    SET THIS firstTurn
+    SET THIS secondTurn
+    SET THIS thirdTurn
+        results  
+
+
+
+    // METHODES
+    // Create 3 doors
+    SET THIS doors TO NEW Door WITH 1 AND true
+    SET THIS doors TO NEW Door WITH 2 AND false
+    SET THIS doors TO NEW Door WITH 3 AND false
+
+
+
+
+    DETERMINE firstTurn door
+    GET THIS doorPicked randomly
+    // comment utilise le random avec door picked
+
+
+// Doit-on spécifier la formule? ******************************
+    DETERMINE secondTurn door
+    GET THIS openedGoatDoor
+
+
+
+
+
+// Doit-on spécifier la formule? ******************************
+    DETERMINE thirdTURN door
+    GET THIS finalPick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEFINE Statistics
+    // CONSTRUCTOR
+    SET THIS gamesWithSameDoorWon
+    SET THIS gamesWithSameDoorLost
+    SET THIS gamesWithDoorChangeWon
+    SET THIS gamesWithDoorChangeLost
+    SET THIS totalSameDoorPlayedGames
+    SET THIS totalDoorChangePlayedGames
+    SET THIS percentageGamesWithSameDoorWon
+    SET THIS percentageGamesWithSameDoorLost
+    SET THIS percentageGamesWithDoorChangeWon
+    SET THIS percentageGamesWithDoorChangeLost
+
+
+
+Monty Hall Problem Algorithm
+
+INIT game
+    
+   
+        IF Player 1 keeps picked door
+            IF door is car
+                ADD 1 TO door picked won games total
+            ELSE 
+                Player 1 loose
+                ADD 1 TO door picked lost games total
+            ENDIF
+        ELSE (change door)
+            IF door is car
+                Player 1 win
+                ADD 1 TO final pick won games total
+            ELSE 
+                Player 1 loose
+                ADD 1 TO final pick lost games total
+            ENDIF
+        ENDIF
+    INCREMENT played games total by 1
+    CALCULATE door picked won games total / played games total * 100
+    CALCULATE door picked lost games total / played games total * 100
+    CALCULATE final pick won games total / played games total * 100
+    CALCULATE final pick lost games total / played games total * 100
+REPEAT
+    game
+UNTIL game total = 10000
