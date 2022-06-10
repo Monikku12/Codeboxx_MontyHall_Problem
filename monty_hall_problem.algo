@@ -13,12 +13,18 @@ DEFINE Game
     SET THIS openedGoatDoor
     SET THIS finalPick
     SET THIS won
+    goatDoor
+    choice
     SET THIS createDoors
     SET THIS firstTurn
     SET THIS secondTurn
     SET THIS thirdTurn
+        results  
+
+
 
     // METHODES
+    // Create 3 doors
     SET THIS doors TO NEW Door WITH 1 AND true
     SET THIS doors TO NEW Door WITH 2 AND false
     SET THIS doors TO NEW Door WITH 3 AND false

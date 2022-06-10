@@ -19,8 +19,7 @@ class Game {
         this.firstTurn();
         this.secondTurn();
         this.thirdTurn();
-        this.results();
-        
+        this.results();        
     }
     
     createDoors() {
