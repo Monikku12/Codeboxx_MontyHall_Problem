@@ -26,19 +26,22 @@ DEFINE Game
 
 
 
-    DETERMINE firstTurn results
+    DETERMINE firstTurn door
     GET THIS doorPicked randomly
+    // comment utilise le random avec door picked
 
-    DETERMINE secondTurn results
+
+// Doit-on spécifier la formule? ******************************
+    DETERMINE secondTurn door
     GET THIS openedGoatDoor
 
 
 
 
 
-
-
-
+// Doit-on spécifier la formule? ******************************
+    DETERMINE thirdTURN door
+    GET THIS finalPick
 
 
 
