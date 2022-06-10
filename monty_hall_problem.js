@@ -27,12 +27,12 @@ class Game {
         this.doors[0] = new Door(1, true);
         this.doors[1] = new Door(2, false);
         this.doors[2] = new Door(3, false);
-        console.log("doors are ", this.doors)
     }
 
     firstTurn() {
         this.doorPicked = this.doors[Math.floor(Math.random() * (3 - 1 + 1) )]
-        console.log("You chose", this.doorPicked)
+        console.log("Game Start")
+        console.log("You chose a door.")
     }
 
     secondTurn() {        
@@ -41,14 +41,14 @@ class Game {
             this.goatDoor[0].opened = true;
         this.openedGoatDoor = this.goatDoor.filter(door=>
             door.opened == true);
-        console.log("Monty opened", this.openedGoatDoor)
+        console.log("Monty opened a loosing door.")
     }
 
     thirdTurn() {
         this.finalPick = this.doors.filter(door=>
             door.opened == false && door.number !== this.doorPicked.number);
         this.finalPick[0].opened = true;
-        console.log("You changed door and opened", this.finalPick)
+        console.log("The possibility of you changing door and opening it is calculated.")
     }
     
     results() {
@@ -60,15 +60,15 @@ class Game {
                 this.doorPicked.opened = true;
                 this.won = false;
             }
-        } else if (this.choice == false) {
-            if (this.finalPick.isCar == true) {
-                this.finalPick.opened = true;
+        } else if (this.choice == false) {            
+            if (this.finalPick[0].isCar == true) {
+                this.finalPick[0].opened = true;
                 this.won = true;
             } else {
-                this.finalPick.opened = true;
+                this.finalPick[0].opened = true;
                 this.won = false;                
             }
-        } console.log("You win is", this.won)
+        }
     }
 }
 
@@ -89,62 +89,67 @@ class Statistics {
         this.percentageGamesWithDoorChangeLost;
     }
 
-    function () {
-        percentageGamesWithSameDoorWon = gamesWithSameDoorWon / totalSameDoorPlayedGames * 100
-        return (percentageGamesWithSameDoorWon, "%")
+    statsGamesWithSameDoorWon () {
+        this.percentageGamesWithSameDoorWon = this.gamesWithSameDoorWon / this.totalSameDoorPlayedGames * 100
+        return (this.percentageGamesWithSameDoorWon.toLocaleString("en-us",{minimumFractionDigits: 2, maximumFractionDigits: 2}) + " %")
+    }    
+
+    statsGamesWithSameDoorLost () {
+        this.percentageGamesWithSameDoorLost = this.gamesWithSameDoorLost / this.totalSameDoorPlayedGames * 100
+        return (this.percentageGamesWithSameDoorLost.toLocaleString("en-us",{minimumFractionDigits: 2, maximumFractionDigits: 2}) + " %")
     }
 
-//     function () {
-//         percentageGamesWithSameDoorLost = gamesWithSameDoorLost / totalSameDoorPlayedGames * 100
-//         return (percentageGamesWithSameDoorLost, "%")
-//     }
+    statsGamesWithDoorChangeWon () {
+        this.percentageGamesWithDoorChangeWon = this.gamesWithDoorChangeWon / this.totalDoorChangePlayedGames * 100
+        return (this.percentageGamesWithDoorChangeWon.toLocaleString("en-us",{minimumFractionDigits: 2, maximumFractionDigits: 2}) + " %")
+    }
 
-//     function () {
-//         percentageGamesWithDoorChangeWon = gamesWithDoorChangeWon / totalDoorChangePlayedGames * 100
-//         return (percentageGamesWithDoorChangeWon, "%")
-//     }
-
-//     function () {
-//         percentageGamesWithDoorChangeLost = gamesWithDoorChangeLost / totalDoorChangePlayedGames * 100
-//         return (percentageGamesWithDoorChangeLost, "%")
-//     }
+    statsGamesWithDoorChangeLost () {
+        this.percentageGamesWithDoorChangeLost = this.gamesWithDoorChangeLost / this.totalDoorChangePlayedGames * 100
+        return (this.percentageGamesWithDoorChangeLost.toLocaleString("en-us",{minimumFractionDigits: 2, maximumFractionDigits: 2}) + " %")
+    }
 }
 
 
 var data = new Statistics;
+var numberOfGameToPlay = 10000
 
-let count = 0
+let totalSameDoorPlayedGames = 0
 // Game(choice) : true = sameDoor, false = doorChange
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < numberOfGameToPlay; i++) {
     var sameDoorGame = new Game(true); 
-    count++;   
-    if (sameDoorGame.won = true) {
+    data.totalSameDoorPlayedGames++;   
+    if (sameDoorGame.won == true) {
         data.gamesWithSameDoorWon++;
-        console.log("Well played")
-    } if (sameDoorGame.won = false) {
+        console.log("You win")
+    } else {
         data.gamesWithSameDoorLost++;
-        console.log("Too bad")
-    }
-    // sameDoorGame.won = false
-    // console.log(this.gamesWithSameDoorWon)
+        console.log("You loose")
+        } console.log("End Game")
     }
 
+    let totalDoorChangePlayedGames = 0
+    // Game(choice) : true = sameDoor, false = doorChange
+    for (let i = 0; i < numberOfGameToPlay; i++) {
+        var doorChangeGame = new Game(false); 
+        data.totalDoorChangePlayedGames++;   
+        if (doorChangeGame.won == true) {
+            data.gamesWithDoorChangeWon++;
+            console.log("You win")
+        } else {
+            data.gamesWithDoorChangeLost++;
+            console.log("loose")
+            }
+        }
 
-// for (let i = 0; i < 10; i++) {
-//     var doorChangeGame = new Game(false);
-//     }
+data.statsGamesWithSameDoorWon ();
+console.log("----- Game Statistics ------")
+console.log(data.statsGamesWithSameDoorWon(""), "of games were won when not switching door")
+data.statsGamesWithSameDoorLost ();
+console.log(data.statsGamesWithSameDoorLost(""), "of games were lost when not switching door")
+data.statsGamesWithDoorChangeWon ();
+console.log(data.statsGamesWithDoorChangeWon(""), "of games were won when switching door")
+data.statsGamesWithDoorChangeLost ();
+console.log(data.statsGamesWithDoorChangeLost(""), "of games were lost when switching door")
 
-// for (let gameNumber = 0; gameNumber < 10; gameNumber++) {
-//     var doorChangeGame = new Game(false);
-    
-//     }
-
-
-// while (gameNumber = 0, gameNumber <= 10) {
-//     let 
-//     var sameDoorGame = new Game(true);
-//     this.gameNumber++;
-//     }
-//     totalSameDoorPlayedGames = gameNumber
-
-  console.log("Game Over")
+  console.log("Thank you for playing!")
