@@ -121,12 +121,15 @@ for (let i = 0; i < 10; i++) {
     if (sameDoorGame.won = true) {
         data.gamesWithSameDoorWon++;
         console.log("Well played")
+    } if (sameDoorGame.won = false) {
+        data.gamesWithSameDoorLost++;
+        console.log("Too bad")
     }
     // sameDoorGame.won = false
     // console.log(this.gamesWithSameDoorWon)
     }
 
-    
+
 // for (let i = 0; i < 10; i++) {
 //     var doorChangeGame = new Game(false);
 //     }
