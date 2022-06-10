@@ -1,16 +1,9 @@
-// en attendant de revoir mon fichier
-
 class Door {
     constructor(number, isCar) {
         this.number = number;
         this.isCar = isCar;
         this.opened = false
         }
-
-    // function () {
-    //     return Math.floor(Math.random() * (3 - 1 + 1) ) + 1;
-    // }
-
 }
 
 
@@ -33,30 +26,53 @@ class Game {
         this.doors[0] = new Door(1, true);
         this.doors[1] = new Door(2, false);
         this.doors[2] = new Door(3, false);
-        console.log(this.doors)
+        console.log("doors are ", this.doors)
     }
 
     firstTurn() {
         this.doorPicked = this.doors[Math.floor(Math.random() * (3 - 1 + 1) )]
-        console.log(this.doorPicked)
+        console.log("firstTurn is ", this.doorPicked)
     }
 
     secondTurn() {
         var minusFirstTurn
-        minusFirstTurn = this.doors.filter(door=>
+        this.openedGoatDoor = this.doors.filter(door=>
             door.number !== this.doorPicked.number && door.isCar == false); 
-        minusFirstTurn[0].opened = true;
-        this.openedGoatDoor = minusFirstTurn
-        console.log(this.openedGoatDoor 
+            this.openedGoatDoor[0].opened = true;
+        // this.openedGoatDoor = minusFirstTurn[0]
+        console.log("this.openedGoatDoor is :", this.openedGoatDoor)
     }
 
     thirdTurn() {
+        this.finalPick = this.doors.filter(door=>
+            door.number !== this.doorPicked.number && this.openedGoatDoor.number);
+        this.finalPick.opened = true;
+        console.log("this.openedGoatDoor is :", this.openedGoatDoor)
 
 
 
+        var choice;
+        var sameDoor;
+        var changeDoor;
+        if (choice = sameDoor) {
+            if (this.doorPicked.isCar = true) {
+                this.doorPicked.opened = true;
+                console.log("this.doorPicked is", this.doorPicked)
+                alert("You win!");
+            } else {
+                this.doorPicked.opened = true;
+                alert("You loose!")
+            }
+        } else (choice = changeDoor)
+        if (this.finalPick.isCar = true) {
+            this.finalPick.opened = true;
+            console.log("this.finalPick is", this.finalPick)
+            alert("You win!");
+        } else {
+            this.finalPick.opened = true;
+            alert("You loose!")
+        }
     }
-
-   
 }
 
 var game = new Game();
@@ -94,10 +110,10 @@ class Statistics {
 }
 // let game = 0
 
-// // while (game <= 10000) {
-// //     // game play
-// //     game++;
-// //   }
-// //   totalPlayedGames = game(value)
+while (game <= 10000) {
+    // game play
+    game++;
+  }
+  totalPlayedGames = game(value)
 
-// //   console.log("End game")
+  console.log("End game")
