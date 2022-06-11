@@ -138,7 +138,7 @@ for (let i = 0; i < numberOfGameToPlay; i++) {
         } else {
             data.gamesWithDoorChangeLost++;
             console.log("loose")
-            }
+            } console.log("End Game")
         }
 
 console.log("----- Game Statistics ------")
