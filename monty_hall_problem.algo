@@ -13,15 +13,13 @@ DEFINE Game
     SET THIS openedGoatDoor
     SET THIS finalPick
     SET THIS won
-    goatDoor
-    choice
+    SET THIS goatDoor
+    SET THIS choice
     SET THIS createDoors
     SET THIS firstTurn
     SET THIS secondTurn
     SET THIS thirdTurn
-        results  
-
-
+    SET THIS results  
 
     // METHODES
     // Create 3 doors
@@ -30,61 +28,43 @@ DEFINE Game
     SET THIS doors TO NEW Door WITH 3 AND false
 
 
-
-
     DETERMINE firstTurn door
-    GET THIS doorPicked randomly
-    // comment utilise le random avec door picked
+    GET THIS doorPicked with Math.ramdom function * 3 - 1 + 1;
+    // ADD note Game Start
+    // ADD note : You chose a door. (indicate action done to client during video)
 
 
-// Doit-on spécifier la formule? ******************************
     DETERMINE secondTurn door
-    GET THIS openedGoatDoor
+    GET THIS GoatDoor WITH THIS doors ADD FILTER :
+        door.number NOT EQUAL THIS doorPicked AND door.isCar IS false
+        THIS goatDoor array position 0 opened IS true;
+    GET THIS openedGoatDoor WITH THIS goatDoor ADD FILTER :
+        door.opened IS true;
+    // ADD note : Monty opened a loosing door. (indicate action done to client during video)
 
 
-
-
-
-// Doit-on spécifier la formule? ******************************
     DETERMINE thirdTURN door
-    GET THIS finalPick
+    GET THIS finalPick WITH THIS doors ADD FILTER :
+        door.opened EQUAL false AND door.number NOT EQUAL THIS doorPicked.number
+    THIS finalPick array position 0 opened IS true;
+    // ADD note : The possibility of you changing door and opening it is calculated. (indicate action done to client during video)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    DETERMINE game results
+        IF THIS choice EQUAL true
+            IF THIS doorPicked.isCar EQUAL true
+                THIS doorPicked.opened IS true;
+                THIS won IS true;
+            ELSE 
+                THIS doorPicked.opened IS true;
+                THIS won IS false;
+        ELSE IF THIS choice EQUAL false
+            IF THIS finalPick.isCar EQUAL true
+                THIS finalPick.opened IS true;
+                THIS won IS true;
+            ELSE 
+                THIS finalPick.opened IS true;
+                THIS won IS false;
 
 
 
@@ -95,45 +75,80 @@ DEFINE Game
 
 DEFINE Statistics
     // CONSTRUCTOR
-    SET THIS gamesWithSameDoorWon
-    SET THIS gamesWithSameDoorLost
-    SET THIS gamesWithDoorChangeWon
-    SET THIS gamesWithDoorChangeLost
-    SET THIS totalSameDoorPlayedGames
-    SET THIS totalDoorChangePlayedGames
-    SET THIS percentageGamesWithSameDoorWon
-    SET THIS percentageGamesWithSameDoorLost
-    SET THIS percentageGamesWithDoorChangeWon
-    SET THIS percentageGamesWithDoorChangeLost
+        SET THIS gamesWithSameDoorWon
+        SET THIS gamesWithSameDoorLost
+        SET THIS gamesWithDoorChangeWon
+        SET THIS gamesWithDoorChangeLost
+        SET THIS totalSameDoorPlayedGames
+        SET THIS totalDoorChangePlayedGames
+        SET THIS percentageGamesWithSameDoorWon
+        SET THIS percentageGamesWithSameDoorLost
+        SET THIS percentageGamesWithDoorChangeWon
+        SET THIS percentageGamesWithDoorChangeLost
+       
+         
+
+DETERMINE statsGamesWithSameDoorWon
+CALCULATE THIS percentageGamesWithSameDoorWon EQUAL THIS gamesWithSameDoorWon DIVIDED BY THIS totalSameDoorPlayedGames MULTIPLIED BY 100
+PRINT THIS percentageGamesWithSameDoorWon WITH 2 digits number AND percentage sign
+
+
+DETERMINE statsGamesWithSameDoorLost
+CALCULATE THIS percentageGamesWithSameDoorLost EQUAL THIS gamesWithSameDoorLost DIVIDED BY THIS totalSameDoorPlayedGames MULTIPLIED BY 100
+PRINT THIS percentageGamesWithSameDoorLost WITH 2 digits number AND percentage sign
+
+
+DETERMINE statsGamesWithDoorChangeWon
+CALCULATE THIS percentageGamesWithDoorChangeWon EQUAL THIS gamesWithDoorChangeWon DIVIDED BY THIS totalDoorChangePlayedGames MULTIPLIED BY 100
+PRINT THIS percentageGamesWithDoorChangeWon WITH 2 digits number AND percentage sign
+
+
+DETERMINE statsGamesWithDoorChangeLost
+CALCULATE THIS percentageGamesWithDoorChangeLost EQUAL THIS gamesWithDoorChangeLost DIVIDED BY THIS totalDoorChangePlayedGames MULTIPLIED BY 100
+PRINT THIS percentageGampercentageGamesWithDoorChangeLostesWithSameDoorWon WITH 2 digits number AND percentage sign
 
 
 
-Monty Hall Problem Algorithm
 
-INIT game
-    
-   
-        IF Player 1 keeps picked door
-            IF door is car
-                ADD 1 TO door picked won games total
-            ELSE 
-                Player 1 loose
-                ADD 1 TO door picked lost games total
-            ENDIF
-        ELSE (change door)
-            IF door is car
-                Player 1 win
-                ADD 1 TO final pick won games total
-            ELSE 
-                Player 1 loose
-                ADD 1 TO final pick lost games total
-            ENDIF
-        ENDIF
-    INCREMENT played games total by 1
-    CALCULATE door picked won games total / played games total * 100
-    CALCULATE door picked lost games total / played games total * 100
-    CALCULATE final pick won games total / played games total * 100
-    CALCULATE final pick lost games total / played games total * 100
-REPEAT
-    game
-UNTIL game total = 10000
+CALL data WITH Statistics;
+SET numberOfGameToPlay EQUAL a number of game (for now 10000)
+
+SET totalSameDoorPlayedGames TO 0
+// Game(choice) : true = sameDoor, false = doorChange
+FOR SET index TO 0; index IS smaller than numberOfGameToPlay; INCREMENT index
+    SET sameDoorGame WITH new Game TO choice EQUAL true;
+    INCREMENT totalSameDoorPlayedGames;
+    IF sameDoorGame.won EQUAL true
+        INCREMENT data.gamesWithSameDoorWon;
+        // ADD note : You win (indicate game result to client during video)
+    ELSE
+        INCREMENT data.gamesWithSameDoorLost
+        // ADD note : You loose (indicate game result to client during video)
+        // ADD note : End Game (indicate the game ended to client during video)
+
+
+SET totalDoorChangePlayedGames TO 0
+// Game(choice) : true = sameDoor, false = doorChange
+FOR SET index TO 0; index IS smaller than numberOfGameToPlay; INCREMENT index
+    SET doorChangeGame WITH new Game TO choice EQUAL false;
+    INCREMENT totalDoorChangePlayedGames;
+    IF doorChangeGame.won EQUAL true
+        INCREMENT data.gamesWithDoorChangeWon;
+        // ADD note : You win (indicate game result to client during video)
+    ELSE
+        INCREMENT data.gamesWithDoorChangeLost
+        // ADD note : You loose (indicate game result to client during video)
+        // ADD note : End Game (indicate the game ended to client during video)
+
+
+// ADD note : ----- Game Statistics ------ (indicate change of section to client during video)
+PRINT data.statsGamesWithSameDoorWon
+// ADD note : XX% of games were won when not switching door (indicate Statistics to client during video)
+PRINT data.statsGamesWithSameDoorLost
+// ADD note : XX% of games were lost when not switching door (indicate Statistics to client during video)
+PRINT data.statsGamesWithDoorChangeWon
+// ADD note : XX% of games were won when switching door (indicate Statistics to client during video)
+PRINT data.statsGamesWithDoorChangeLost
+// ADD note : XX% of games were lost when switching door (indicate Statistics to client during video)
+
+// ADD note : Thank you for playing! (indicate end of presentation to client during video)

@@ -141,8 +141,8 @@ for (let i = 0; i < numberOfGameToPlay; i++) {
             }
         }
 
-data.statsGamesWithSameDoorWon ();
 console.log("----- Game Statistics ------")
+data.statsGamesWithSameDoorWon ();
 console.log(data.statsGamesWithSameDoorWon(""), "of games were won when not switching door")
 data.statsGamesWithSameDoorLost ();
 console.log(data.statsGamesWithSameDoorLost(""), "of games were lost when not switching door")
